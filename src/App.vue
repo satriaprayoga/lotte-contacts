@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png" class="logo">
+    <img src="./assets/Lotte-01.png" class="logo">
     
     <router-view/>
   </div>
@@ -26,7 +26,7 @@ export default {
 }
 .logo {
   max-width: 500px;
-  height: 70px;
+  height: 150px;
   margin: auto;
   display: flex;
   align-items: center;
