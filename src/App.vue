@@ -60,6 +60,25 @@
       </div>
       </div>
     </div>
+    <div class="row">
+      <div class="col-md-10">
+        <div class="form-group">
+          <label for="form_domisili">Anda Tahu Lotte Grosir dari</label>
+          <div id="domisili">
+            <select id="form_domisili" name="source" class="form-control" title="Tahu Lotte Grosir dari">
+            <option>Website</option>
+            <option>Media Sosial</option>
+            <option>TV</option>
+          </select>
+          </div>
+       </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-10">
+        <button class="btn btn-success btn-lg btn-block" id="send-button">Kirim Sekarang</button>
+      </div>
+    </div>
     </div>
     </div>
     
@@ -115,6 +134,7 @@ a {
 .contact-form {
   margin: auto;
   background: #fff;
+  padding-bottom: 30px;
 }
 label {
   margin-left: 20px;
@@ -143,5 +163,10 @@ input[type] {
 }
 .form-check-label{
   margin: auto;
+}
+
+#send-button{
+  margin-top: 40px;
+  margin-left: 20px;
 }
 </style>
