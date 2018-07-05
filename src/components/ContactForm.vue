@@ -93,6 +93,8 @@
     </div>
 </template>
 <script>
+import axios from "axios"
+
 export default {
     name:"contact-form",
     data(){
@@ -118,6 +120,7 @@ export default {
     validateSubmit(){
         this.$validator.validateAll().then((result)=>{
             if(result){
+                this.sendContact
                 this.clearContact()
                // this.$router.push("submit_ok")
                this.formSumbitted=true
@@ -128,7 +131,18 @@ export default {
         })
     },
     sendContact(){
-
+        var data={
+            name:this.name,
+            email:this.email
+        }
+        axios.post("http://localhost/contact.php",data,{
+                'X-Requested-With': 'XMLHttpRequest'
+            
+          }).then(function(response){
+            console.log(response)
+        }).catch(function(errors){
+            console.log(errors)
+        })
     },
     clearContact(){
       this.name=""
