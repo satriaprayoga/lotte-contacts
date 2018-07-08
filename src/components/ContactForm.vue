@@ -120,7 +120,7 @@ export default {
     validateSubmit(){
         this.$validator.validateAll().then((result)=>{
             if(result){
-                this.sendContact
+                this.sendContact()
                 this.clearContact()
                // this.$router.push("submit_ok")
                this.formSumbitted=true
@@ -131,12 +131,13 @@ export default {
         })
     },
     sendContact(){
-        var data={
-            name:this.name,
-            email:this.email
-        }
-        axios.post("http://localhost/contact.php",data,{
-                'X-Requested-With': 'XMLHttpRequest'
+        axios.post("http://localhost/contact.php",{
+            'name': this.name,
+            'email': this.email,
+        },{
+                headers:{
+                    'content-type':'application/json'
+                }
             
           }).then(function(response){
             console.log(response)
