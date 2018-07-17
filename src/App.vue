@@ -1,15 +1,20 @@
 <template>
   <div id="app">
     <img src="./assets/Lotte-01.png" class="logo">
-    
-    <router-view/>
+    <contact-form></contact-form>
   </div>
 </template>
 
 <script>
 
+import ContactForm from "./components/ContactForm.vue"
+
+
 export default {
   name: "app",
+  components:{
+    ContactForm
+  }
 };
 </script>
 
@@ -31,9 +36,7 @@ export default {
   display: flex;
   align-items: center;
 }
-h1 {
-  font-size: 14px;
-}
+
 h3 {
   margin: 40px 0 0;
 }
