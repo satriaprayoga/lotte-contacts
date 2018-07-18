@@ -5,12 +5,12 @@
         <p>Masukkan data anda. Tim kami akan menghubungi anda segera</p>
         </div>
         <div class="contact-form shadow">
-        <form @submit.prevent="validateSubmit" novalidate>
+        <form @submit.prevent="validateSubmit" novalidate >
         <div class="row">
         <div class="col-md-10">
             <div class="form-group">
             <label for="form_name">Nama Lengkap <i>(Sesuai KTP)</i> *</label>
-            <input id="form_name" v-model="name" v-validate="'required'" type="text" name="name" class="form-control" placeholder="Nama Lengkap Sesuai KTP *">
+            <input id="form_email" v-model="name" v-validate="'required'" type="text" name="name" class="form-control" placeholder="Nama Lengkap Sesuai KTP *">
             <p class="text-danger" v-show="errors.has('name')">{{ errors.first('name') }}</p>
             </div>
         </div>
@@ -18,13 +18,13 @@
         <div class="row">
         <div class="col-md-10">
             <div class="form-group">
-            <label for="form_email">Email *</label>
-            <input id="form_email" v-model="email" v-validate="'required|email'" type="email" name="email" class="form-control" placeholder="Alamat Email">
+            <label for="email_field">Email *</label>
+            <input id="email_field" v-model="email" v-validate="'required|email'" type="email" name="email" class="form-control" placeholder="Alamat Email">
             <p class="text-danger" v-if="errors.has('email')">{{ errors.first('email') }}</p>
         </div>
         </div>
         </div>
-        <div class="row">
+        <!-- <div class="row">
         <div class="col-md-10">
             <div class="form-group">
             <label for="form_telepon">No. Telepon/HP *</label>
@@ -76,10 +76,10 @@
             </div>
         </div>
         </div>
-        </div>
+        </div> -->
         <div class="row">
         <div class="col-md-10">
-            <button class="btn btn-success btn-lg btn-block" id="send-button" v-bind:disabled="errors.items.length>0" type="submit">Kirim Sekarang</button>
+            <button class="btn btn-success btn-lg btn-block" id="send-button" name="send_contact" v-bind:disabled="errors.items.length>0" type="submit">Kirim Sekarang</button>
         </div>
         </div>
         </form>
@@ -93,66 +93,65 @@
     </div>
 </template>
 <script>
-import axios from "axios"
+import axios from "axios";
 
 export default {
-    name:"contact-form",
-    data(){
-    return{
-      name:"",
-      email:"",
-      phone:"",
-      domisili:"",
-      lahan:"",
-      opsiLahanY:"Ya",
-      opsiLahanN:"Tidak",
-      source:"",
-      formSumbitted:false
-    }
+  name: "contact-form",
+  data() {
+    return {
+      name: "",
+      email: "",
+      phone: "",
+      domisili: "",
+      lahan: "",
+      opsiLahanY: "Ya",
+      opsiLahanN: "Tidak",
+      source: "",
+      formSumbitted: false
+    };
   },
-  created(){
-      this.lahan=this.opsiLahanY;
+  created() {
+    this.lahan = this.opsiLahanY;
   },
-  destroyed(){
-      this.clearContact;
+  destroyed() {
+    this.clearContact;
   },
-  methods:{
-    validateSubmit(){
-        this.$validator.validateAll().then((result)=>{
-            if(result){
-                this.sendContact()
-                this.clearContact()
-               // this.$router.push("submit_ok")
-               this.formSumbitted=true
-               return;
-            }
-            this.formSumbitted=false
-            alert("Fuck Off");
-        })
+  methods: {
+    validateSubmit() {
+      this.$validator.validateAll().then(result => {
+        if (result) {
+          this.sendContact();
+          this.clearContact();
+          // this.$router.push("submit_ok")
+          this.formSumbitted = true;
+          return;
+        }
+        this.formSumbitted = false;
+      });
     },
-    sendContact(){
-        axios.post("http://localhost/contact.php",{
-            'name': this.name,
-            'email': this.email,
-        },{
-                headers:{
-                    'content-type':'application/json'
-                }
-            
-          }).then(function(response){
-            console.log(response)
-        }).catch(function(errors){
-            console.log(errors)
+    sendContact() {
+      const scriptURL =
+        "https://script.google.com/macros/s/AKfycbypeKxD3QJNHGVhrWkqwD_gR-1mUreYgK6-OpW5WIivB0yYJ8vr/exec";
+      var data=new FormData(document.forms[0])
+      axios
+        .post(
+          scriptURL,data,
+        )
+        .then(function(response) {
+          console.log(response);
         })
+        .catch(function(errors) {
+          console.log(errors);
+        });
     },
-    clearContact(){
-      this.name=""
-      this.email="",
-      this.phone="",
-      this.domisili="",
-      this.lahan="";
-      this.source=""
+    clearContact() {
+      this.name = "";
+      (this.email = ""),
+        (this.phone = ""),
+        (this.domisili = ""),
+        (this.lahan = "");
+      this.source = "";
     }
   }
-}
+};
 </script>
